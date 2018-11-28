@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Event Search</title>
+    </head>
+    <body>
+        <p>Hi< <strong>{{ user }}</strong></p>
+
+        {% if tickets_bought %}
+            <p>Tickets you've purchased:</p>
+            {% for ticket in tickets_bought %}
+                <p>{{ ticket }}</p>
+            {% endfor %}
+        {% endif %}
+
+        {% if tickets_booked %}
+            <p>Tickets you've booked:</p>
+            {% for ticket in tickets_booked %}
+                <p>{{ ticket }}</p>
+            {% endfor %}
+            <form action="/buy_booked/" method="post">
+                {% csrf_token %}
+                <input type="text" name="q">
+                <input type="submit" value="Buy" >
+            </form>
+             <form action="/dismiss/" method="post">
+                 {% csrf_token %}
+                 <input type="text" name="q">
+                 <input type="submit" value="Dismiss" >
+             </form>
+        {% endif %}
+
+</body>
+</html>

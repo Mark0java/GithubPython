@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bought</title>
+</head>
+<body>
+    {% if error or query|length == 0 %}
+        <p>No such ticket available</p>
+    {% elif booked %}
+    <p>You booked ticket {{ query }}</p>
+    {% else %}
+    <p>You bought ticket {{ query }}</p>
+    {% endif %}
+</body>
+</html>

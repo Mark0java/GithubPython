@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Event Search</title>
+    </head>
+    <body>
+        <p>You searched for: <strong>{{ query }}</strong></p>
+
+        {% if events %}
+            <p>Found {{ events|length }} event{{ events|pluralize }}.</p>
+            <ul>
+                {% for event in events %}
+                    <p><strong><li>{{ event.name }}</li></strong></p>
+                    {% for ticketarr in tickets %}
+                            {% for ticket in ticketarr %}
+                                {% if ticket.event == event and ticket.owner_id is None and ticket.booked_id is None %}
+                                    <p>{{ ticket }}</p>
+                                {% endif %}
+                            {% endfor %}
+                    {% endfor %}
+                    <form action="/buy/" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="q">
+                        <input type="submit" value="Buy" >
+                    </form>
+                    <form action="/book/" method="post">
+                        {% csrf_token %}
+                        <input type="text" name="q">
+                        <input type="submit" value="Book" >
+                    </form>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No events matched your search criteria.</p>
+        {% endif %}
+    </body>
+</html>
